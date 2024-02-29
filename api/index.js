@@ -9,7 +9,17 @@ const app = express()
 
 app.use(express.json())
 
-app.use('/api/auth',authRouter)
+app.use('/api/auth', authRouter)
+
+app.use((err, req, res, next) => {
+    const statuscode = err.statuscode || 500;
+    const message = err.message || 'Internal Server Error'
+    return res.status(statuscode).json({
+        success: false,
+        message,
+        statuscode
+    })
+})
 app.listen(3000, () => {
     console.log("Successfully running on Server 3000");
 })
