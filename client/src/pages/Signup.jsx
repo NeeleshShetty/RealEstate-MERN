@@ -34,7 +34,7 @@ const Signup = () => {
     setFormData({...formData , [e.target.id]:e.target.value})
   }
  
-  return (
+  return (    
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl text-center flex justify-center items-center mt-10 font-bold'>Sign Up</h1>
       <form className='flex flex-col gap-4 mt-5'>
