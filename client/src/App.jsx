@@ -4,7 +4,7 @@ import About from "./pages/About";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import SignIn from "./pages/SignIn";
-import SignOut from "./pages/SignOut";
+import Signup from "./pages/Signup";
 
 function App() {
   return (
@@ -28,8 +28,8 @@ function App() {
 					element={<SignIn />}
 				/>
 				<Route
-					path="/sign-out"
-					element={<SignOut />}
+					path="/sign-up"
+					element={<Signup />}
 				/>
 			</Routes>
 		</BrowserRouter>
