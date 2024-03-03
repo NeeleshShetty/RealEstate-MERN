@@ -31,6 +31,7 @@ const SignIn = () => {
      
       if(data.success === false){
         dispatch(signInFailure(data.message))
+        setError(data.message)
         return
       }
       dispatch(signInSuccess(data))
@@ -49,7 +50,7 @@ const SignIn = () => {
     </form>
 
     <div className='mt-5 text-xl font-semibold'><p>Don't have an account ?<Link to='/sign-up'><span className='text-blue-500 ml-2'>Sign Up</span></Link> </p></div>
-    <p className='text-red-600 text-xl mt-5'>{error}</p>
+    <p className='text-red-600 text-xl mt-5 mb-3'>{error}</p>
     <OAuth />
   </div>
   
