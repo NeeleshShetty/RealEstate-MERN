@@ -50,7 +50,10 @@ const Profile = () => {
 	const handleChange = (e) => {
 		setFormData({...formData , [e.target.id] : e.target.value})
 	}
+
 // console.log(formData);
+
+
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		try {
@@ -63,7 +66,7 @@ const Profile = () => {
 
 			const data = await res.json()
 			if (data.success === false) {
-				dispatch(updateUserFailure(data))
+				dispatch(updateUserFailure(data.message))
 				setUpdateSuccess(false)
 			}
 			dispatch(updateUserSuccess(data))
