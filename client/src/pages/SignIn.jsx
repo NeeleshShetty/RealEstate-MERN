@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import {useDispatch} from 'react-redux'
 import { signInStart,signInFailure,signInSuccess } from '../redux/user/userSlice'
+import OAuth from '../components/OAuth'
 
 const SignIn = () => {
   const [error,setError] = useState(null)
@@ -49,7 +50,9 @@ const SignIn = () => {
 
     <div className='mt-5 text-xl font-semibold'><p>Don't have an account ?<Link to='/sign-up'><span className='text-blue-500 ml-2'>Sign Up</span></Link> </p></div>
     <p className='text-red-600 text-xl mt-5'>{error}</p>
+    <OAuth />
   </div>
+  
   )
 }
 
