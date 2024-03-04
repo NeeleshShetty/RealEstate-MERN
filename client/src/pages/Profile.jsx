@@ -6,6 +6,7 @@ import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/
 import { app } from "../firebase";
 import { deleteUserFailure, deleteUserStart, deleteUserSuccess, updateUserFailure, updateUserStart, updateUserSuccess,signout } from '../redux/user/userSlice'
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const [image, setImage] = useState(undefined)
@@ -169,7 +170,8 @@ const Profile = () => {
 					className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
 				>
 					{loading ? 'Loading...' : 'Update'}
-				</button>
+			  </button>
+			  <Link className="bg-green-700 text-white p-3 rounded-lg text-center font-semibold uppercase " to={'/create-listing'}>Create Listing</Link>
 				<p className="text-green-500 self-center">
 					{updateSuccess && 'Updated Successfully'}
 				</p>

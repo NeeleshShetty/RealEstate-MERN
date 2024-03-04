@@ -6,6 +6,7 @@ import Profile from "./pages/Profile";
 import SignIn from "./pages/SignIn";
 import Signup from "./pages/Signup";
 import PrivateRoute from "./components/PrivateRoute";
+import CreateListing from "./pages/CreateListing";
 
 function App() {
   return (
@@ -33,7 +34,8 @@ function App() {
 				<Route
 					path="/profile"
 					element={<Profile />}
-				/>
+				  />
+				  <Route path="/create-Listing" element={<CreateListing />} />
 				</Route>
 				
 			</Routes>
