@@ -125,6 +125,24 @@ const Profile = () => {
 		}
 	}
 
+	 const handleListingDelete = async (listingId) => {
+			try {
+				const res = await fetch(`/api/listing/delete/${listingId}`, {
+					method: 'DELETE',
+				});
+				const data = await res.json();
+				if (data.success === false) {
+					console.log(data.message);
+					return;
+				}
+
+				setUserListings((prev) =>
+					prev.filter((listing) => listing._id !== listingId)
+				);
+			} catch (error) {
+				console.log(error.message);
+			}
+		};
   return (
 		<div className="w-110 flex flex-col items-center ">
 			<h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
@@ -222,13 +240,11 @@ const Profile = () => {
 				Show Listings
 			</button>
 			<p> {showListingError ? 'Error in Showing Lists' : ''}</p>
-			{userListings &&
-				userListings.length >
-					0 && (
-						<h1 className="text-3xl text-slate-600 font-semibold mt-7 mb-7">
-							Your Listings
-						</h1>
-					)}
+			{userListings && userListings.length > 0 && (
+				<h1 className="text-3xl text-slate-600 font-semibold mt-7 mb-7">
+					Your Listings
+				</h1>
+			)}
 
 			{userListings &&
 				userListings.length > 0 &&
@@ -248,11 +264,14 @@ const Profile = () => {
 							className="font-semibold text-slate-700 flex-1 hover:underline truncate"
 							to={`/listing/${listing._id}`}
 						>
-							<p c>{listing.name}</p>
+							<p>{listing.name}</p>
 						</Link>
 
 						<div className="flex flex-col gap-1 ">
-							<button className="text-red-700 uppercase hover:scale-110 duration-300">
+							<button
+								onClick={() => handleListingDelete(listing._id)}
+								className="text-red-700 uppercase hover:scale-110 duration-300"
+							>
 								Delete
 							</button>
 							<button className="text-green-700 uppercase hover:scale-110 duration-300">
