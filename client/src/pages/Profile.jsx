@@ -14,6 +14,8 @@ const Profile = () => {
   const [imageError, setImageError] = useState(null)
 	const [formData, setFormData] = useState({})
 	const [updateSuccess, setUpdateSuccess] = useState(null)
+	const [showListingError, setShowListingError] = useState(false)
+	const [userListings,setUserListings] = useState({})
 	const fileRef = useRef(null)
 	const dispatch = useDispatch()
   const { currentUser,loading,error } = useSelector(state => state.user)
@@ -106,6 +108,23 @@ const Profile = () => {
 		}
 	}
 
+	const handleShowListings = async () => {
+		try {
+			setShowListingError(false)
+			const res = await fetch(`/api/user/listings/${currentUser._id}`);
+			const data = await res.json()
+
+			if (data.success === false) {
+				setShowListingError(true)
+				return
+			}
+			setUserListings(data)
+			// console.log(data);
+		} catch (error) {
+			setShowListingError(true)
+		}
+	}
+
   return (
 		<div className="w-110 flex flex-col items-center ">
 			<h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
@@ -170,12 +189,16 @@ const Profile = () => {
 					className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
 				>
 					{loading ? 'Loading...' : 'Update'}
-			  </button>
-			  <Link className="bg-green-700 text-white p-3 rounded-lg text-center font-semibold uppercase " to={'/create-listing'}>Create Listing</Link>
+				</button>
+				<Link
+					className="bg-green-700 text-white p-3 rounded-lg text-center font-semibold uppercase "
+					to={'/create-listing'}
+				>
+					Create Listing
+				</Link>
 				<p className="text-green-500 self-center">
 					{updateSuccess && 'Updated Successfully'}
 				</p>
-				
 			</form>
 
 			<div className="flex justify-between mt-5 gap-7">
@@ -185,8 +208,59 @@ const Profile = () => {
 				>
 					Delete Account
 				</span>
-				<span className="text-red-700 cursor-pointer" onClick={handleSignout}>Sign Out</span>
+				<span
+					className="text-red-700 cursor-pointer"
+					onClick={handleSignout}
+				>
+					Sign Out
+				</span>
 			</div>
+			<button
+				onClick={handleShowListings}
+				className="text-green-700 mt-2"
+			>
+				Show Listings
+			</button>
+			<p> {showListingError ? 'Error in Showing Lists' : ''}</p>
+			{userListings &&
+				userListings.length >
+					0 && (
+						<h1 className="text-3xl text-slate-600 font-semibold mt-7 mb-7">
+							Your Listings
+						</h1>
+					)}
+
+			{userListings &&
+				userListings.length > 0 &&
+				userListings.map((listing) => (
+					<div
+						key={listing._id}
+						className="border rounded-lg p-3 flex justify-between items-center gap-10  mb-2 mt-2"
+					>
+						<Link to={`/listing/${listing._id}`}>
+							<img
+								className="h-16 w-16 object-contain "
+								src={listing.imageUrls[0]}
+								alt="listing cover"
+							/>{' '}
+						</Link>
+						<Link
+							className="font-semibold text-slate-700 flex-1 hover:underline truncate"
+							to={`/listing/${listing._id}`}
+						>
+							<p c>{listing.name}</p>
+						</Link>
+
+						<div className="flex flex-col gap-1 ">
+							<button className="text-red-700 uppercase hover:scale-110 duration-300">
+								Delete
+							</button>
+							<button className="text-green-700 uppercase hover:scale-110 duration-300">
+								Edit
+							</button>
+						</div>
+					</div>
+				))}
 		</div>
 	);
 }

@@ -83,7 +83,7 @@ const CreateListing = () => {
 		})
 	}
 
-	console.log(formData);
+	// console.log(formData);
 	
 	const handleChange = (e) => {
 		if (e.target.id === 'sale' || e.target.id === 'rent') {
