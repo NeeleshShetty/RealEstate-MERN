@@ -274,9 +274,11 @@ const Profile = () => {
 							>
 								Delete
 							</button>
-							<button className="text-green-700 uppercase hover:scale-110 duration-300">
-								Edit
-							</button>
+							<Link to={`/update-listing/${listing._id}`}>
+								<button className="text-green-700 uppercase hover:scale-110 duration-300">
+									Edit
+								</button>
+							</Link>
 						</div>
 					</div>
 				))}

@@ -7,6 +7,7 @@ import SignIn from "./pages/SignIn";
 import Signup from "./pages/Signup";
 import PrivateRoute from "./components/PrivateRoute";
 import CreateListing from "./pages/CreateListing";
+import UpdateListing from "./pages/UpdateListing";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
 					element={<Profile />}
 				  />
 				  <Route path="/create-Listing" element={<CreateListing />} />
+				  <Route path="/update-Listing/:listingId" element={<UpdateListing />} />
 				</Route>
 				
 			</Routes>
